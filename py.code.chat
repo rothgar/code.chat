@@ -1,0 +1,10 @@
+from github import Github
+
+a = Github( "rothgar", "df607b8a9111b2b4431c052387a6583a80c378dd" )
+url = "https://api.github.com"
+
+for gist in a.get_gists():
+     for file in gist.files:
+        if file.language == "python"
+            print file.content
+
