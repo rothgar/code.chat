@@ -9,4 +9,4 @@ get_gists ()
   "${CURL_EXE}" -s "${BASE_URL}"gists/public | grep -A10 '"id": "' | grep -A1 '"language": "Shell"' | grep "raw_url" | sed -e 's/^[ \    t]*"raw_url":\s//g' | sed -e 's/,\($\)/\1/g'
 }
 
-for i in $( get_gists ); do echo "${i}"; "${CURL_EXE}" "${i}; done
+for i in $( get_gists ); do echo "${i}"; "${CURL_EXE}" "${i}"; done
