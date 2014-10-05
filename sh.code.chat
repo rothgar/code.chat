@@ -2,11 +2,19 @@
 
 BASE_URL='https://api.github.com/'
 CURL_EXE='/usr/bin/curl'
+CURL_ARGS=''
+LANGUAGE='Shell' #case insensitive
 
 # Get all the public gists
 get_gists () 
 {
-  "${CURL_EXE}" -s "${BASE_URL}"gists/public | grep -A10 '"id": "' | grep -A1 '"language": "Shell"' | grep "raw_url" | sed -e 's/^[ \    t]*"raw_url":\s//g' | sed -e 's/,\($\)/\1/g'
+# A reusable function to get public gists
+    "${CURL_EXE}" -s "${BASE_URL}"gists/public | grep -A10 '"id": "' | \
+      grep -A1 -i '"language": "Shell"' | grep "raw_url" | \
+  sed -e 's/^[ \t]*"raw_url":\s//g' | sed -e 's/,\($\)/\1/g' | sed -e 's/"//g'
 }
 
-for i in $( get_gists ); do echo "${i}"; "${CURL_EXE}" "${i}"; done
+for i in $( get_gists ); do
+    [[ -z $DEBUG ]] && echo "${i}";
+    "${CURL_EXE}" "${CURL_ARGS}" "${i}"
+done
