@@ -2,7 +2,7 @@
 
 BASE_URL='https://api.github.com/'
 CURL_EXE='/usr/bin/curl'
-CURL_ARGS=''
+CURL_ARGS='-s'
 LANGUAGE='Shell' #case insensitive
 
 # Get all the public gists
@@ -14,7 +14,21 @@ get_gists ()
   sed -e 's/^[ \t]*"raw_url":\s//g' | sed -e 's/,\($\)/\1/g' | sed -e 's/"//g'
 }
 
+talkify ()
+{
+# replace common punctuation with pronouncible characters
+# do this with awk and a lookup table later!
+    sed -e 's/\./ period /g;s/^#!/she bang /g;s/!/ bang /g;s/\$\([A-Za-z]\)/ var \1/g;s/-/ dash /g;s/|/pipe /g'
+}
+
 for i in $( get_gists ); do
-    [[ -z $DEBUG ]] && echo "${i}";
-    "${CURL_EXE}" "${CURL_ARGS}" "${i}"
+    printf "\n"
+    [[ -z $DEBUG ]] || echo "${i}"
+    if [ -z $TALKIFY ]; then
+        "${CURL_EXE}" "${CURL_ARGS}" "${i}"
+    else
+        "${CURL_EXE}" "${CURL_ARGS}" "${i}" | talkify
+    fi
+    echo "==============================================="
+    printf "\n"
 done
