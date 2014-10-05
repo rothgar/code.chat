@@ -1,0 +1,32 @@
+!=bang
+@="at sign"
+#=hash
+$=dollar
+%=mod
+^=caret
+&=ampersand
+*=star
+(="open paren"
+)="close paren"
+[="open bracket"
+]="close bracket"
+{="open curly"
+}="close curly"
+<=less
+>=greater
+-=dash
+_=underscore
+.=period
+'='=equals
+"=="=equates
+'="single quote"
+"="double quote"
+.=dot
+\=backslash
+/="forward slash"
+`=grave
+~=tilde
+|=pipe
+?="question mark"
+:=colon
+;=semicolon
