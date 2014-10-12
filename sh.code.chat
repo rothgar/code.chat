@@ -16,9 +16,12 @@ get_gists ()
 
 talkify ()
 {
-# replace common punctuation with pronouncible characters
+# make sure to use GNU sed
+    #replace new lines with two commas so say command will pause
+    tr '\n' ',,'
+# [WIP] replace common punctuation with pronouncible characters
 # do this with awk and a lookup table later!
-    sed -e 's/\./ period /g;s/^#!/she bang /g;s/!/ bang /g;s/\$\([A-Za-z]\)/ var \1/g;s/-/ dash /g;s/|/pipe /g'
+    sed -e 's/\./ period /g;s/^#!/she bang /g;s/!/ bang /g;s/\$\([{A-Za-z]\)/ var \1/g;s/-/ dash /g;s/|/pipe /g'
 }
 
 for i in $( get_gists ); do
@@ -29,6 +32,7 @@ for i in $( get_gists ); do
     else
         "${CURL_EXE}" "${CURL_ARGS}" "${i}" | talkify
     fi
+    printf "\n"
     echo "==============================================="
     printf "\n"
 done
