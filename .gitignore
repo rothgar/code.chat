@@ -1,0 +1,5 @@
+# virtualenv stuff
+bin
+include
+lib
+local
